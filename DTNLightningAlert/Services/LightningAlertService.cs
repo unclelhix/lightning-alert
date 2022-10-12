@@ -4,6 +4,9 @@ using DTNLightningAlert.Repository;
 
 namespace DTNLightningAlert.Services
 {
+    /// <summary>
+    /// This service handles the execution of lightning alert
+    /// </summary>
     public class LightningAlertService : ILightningAlertService
     {
         private readonly HashSet<string> _assetsReported;        

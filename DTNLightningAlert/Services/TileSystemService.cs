@@ -1,23 +1,30 @@
-﻿using DTNLightningAlert.Helpers;
+﻿using DTNLightningAlert.Exceptions;
+using DTNLightningAlert.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+/**
+* Bing Maps Tile System
+* https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system?redirectedfrom=MSDN
+* **/
 
 namespace DTNLightningAlert.Services
 {
     /**
-     * Bing Maps Tile System
-     * https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system?redirectedfrom=MSDN
-     * **/
+     * This class encapsulates the Tile System Computation
+     * If ever the library has changes we only need to update this service 
+     * and it's not tightly coupled to any Repository
+     **/
 
     /// <summary>
     /// Tile System Service
     /// </summary>
     public class TileSystemService : ITileSystemService
     {
+
         public string GetQuadKey(double latitude, double longtitude, int levelDetail = 12)
         {
             if (levelDetail < 1 || levelDetail > 23)
@@ -33,7 +40,8 @@ namespace DTNLightningAlert.Services
             catch (Exception ex)
             {
                 Debug.WriteLine($"Quand Key Error: {ex.Message}");
-                return null;
+
+                throw new LightningAlertException($"Error converting Lat and Long to QuadKey: {ex.Message}");               
             }
         }
     }
