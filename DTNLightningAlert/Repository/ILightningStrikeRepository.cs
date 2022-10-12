@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTNLightningAlert.Services
+namespace DTNLightningAlert.Repository
 {
-    public interface ILightningStrikeProcessor
+    public interface ILightningStrikeRepository
     {
         IEnumerable<LightningStrike> GetLightningStrikes();
     }

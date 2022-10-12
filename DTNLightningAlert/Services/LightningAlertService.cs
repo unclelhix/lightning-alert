@@ -1,18 +1,23 @@
 ﻿using DTNLightningAlert.Enums;
 using DTNLightningAlert.Models;
+using DTNLightningAlert.Repository;
 
 namespace DTNLightningAlert.Services
 {
     public class LightningAlertService : ILightningAlertService
     {
         private readonly HashSet<string> _assetsReported;        
-        private readonly ILightningStrikeProcessor _lightningStrikeProcessor;
-        private readonly IAssetProcessor _assetProcessor;
+        private readonly ILightningStrikeRepository _lightningStrikeProcessor;
+        private readonly IAssetRepository _assetProcessor;
+        private readonly List<IAlertReporterService> _alertReporterService;
+
         public LightningAlertService(
-            ILightningStrikeProcessor lightningStrikeProcessor, 
-            IAssetProcessor assetProcessor, 
+            List<IAlertReporterService> alertReporterService,
+            ILightningStrikeRepository lightningStrikeProcessor, 
+            IAssetRepository assetProcessor, 
             HashSet<string> assetsReported)
         {
+            _alertReporterService = alertReporterService;
             _assetProcessor = assetProcessor;
             _lightningStrikeProcessor = lightningStrikeProcessor;
             _assetsReported = assetsReported;
@@ -59,9 +64,7 @@ namespace DTNLightningAlert.Services
 
         private void ExecuteAlert(Asset asset)
         {
-
-            if (asset != null)
-                Console.WriteLine($"lightning alert for {asset.AssetOwner}:{asset.AssetName}");
+            _alertReporterService.ForEach(x=>x.Report(asset));            
         }
     }
 }

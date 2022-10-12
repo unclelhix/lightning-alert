@@ -1,30 +1,31 @@
 ﻿using DTNLightningAlert.Exceptions;
 using DTNLightningAlert.Helpers;
 using DTNLightningAlert.Models;
+using DTNLightningAlert.Services;
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace DTNLightningAlert.Services
+namespace DTNLightningAlert.Repository
 {
-    public class AssetProcessor : IAssetProcessor
+    public class AssetRepository : IAssetRepository
     {
         private const int levelDetail = 12;
 
         private string _fileLocation;
-
+        private readonly ITileSystemService _tileSystemService;
         private readonly Dictionary<string, Asset> _assetDictionary = new Dictionary<string, Asset>();
 
-        private readonly string _filePath = Directory.GetCurrentDirectory().Replace(@"bin\Debug\net6.0", @"DataSource\");
-        public AssetProcessor(string fileName)
+        public AssetRepository(ITileSystemService tileSystemService, string fileLocation)
         {
-            if (fileName == null)
-                throw new ArgumentNullException(nameof(fileName));
-            if (Path.GetExtension(fileName) != ".json")
-                throw new ArgumentException($"Invalid file extension.");
+            _fileLocation = fileLocation;
+            _tileSystemService = tileSystemService;
 
-            _fileLocation = GetFileLocation(fileName);
+            if (_fileLocation == null)
+                throw new ArgumentNullException(nameof(_fileLocation));
+            if (Path.GetExtension(_fileLocation) != ".json")
+                throw new ArgumentException($"Invalid file extension.");
             if (!File.Exists(_fileLocation))
-                throw new ArgumentException($"{_fileLocation} does not exist.");           
+                throw new ArgumentException($"{_fileLocation} does not exist.");            
 
             ProcessAssetsData();
         }
@@ -35,6 +36,7 @@ namespace DTNLightningAlert.Services
 
                 var fileText = File.ReadAllText(_fileLocation);
 
+                // Used JsonSerializerDefaults.Web to map decerialized object to Assets model properly
                 var assets = JsonSerializer.Deserialize<List<Asset>>(fileText, new JsonSerializerOptions(JsonSerializerDefaults.Web));
 
                 foreach (var asset in assets)
@@ -44,7 +46,7 @@ namespace DTNLightningAlert.Services
 
                     if (!_assetDictionary.ContainsKey(asset.QuadKey))
                         _assetDictionary.Add(asset.QuadKey, asset);
-                   
+
                 }
             }
             catch (Exception ex)
@@ -53,16 +55,11 @@ namespace DTNLightningAlert.Services
                 throw new LightningAlertException($"{_fileLocation} invalid json format.");
             }
         }
-        private string GetFileLocation(string fileName) {
-            return _fileLocation = $"{_filePath}{fileName}";
-        }
+        
         public Asset GetAsset(LightningStrike lightningStrike)
-        {
-            TileSystem.LatLongToPixelXY(lightningStrike.Latitude, lightningStrike.Longitude, levelDetail, out int pixelX, out int pixelY);
+        {            
 
-            TileSystem.PixelXYToTileXY(pixelX, pixelY, out int tileX, out int tileY);
-
-            var lightningStrikeQuadKey = TileSystem.TileXYToQuadKey(tileX, tileY, levelDetail);
+            var lightningStrikeQuadKey = _tileSystemService.GetQuadKey(lightningStrike.Latitude,lightningStrike.Longitude, levelDetail);
 
             if (string.IsNullOrEmpty(lightningStrikeQuadKey))
                 return null;

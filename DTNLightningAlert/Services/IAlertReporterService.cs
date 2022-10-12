@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DTNLightningAlert.Services
 {
-    public interface IAssetProcessor
+    public interface IAlertReporterService
     {
-        Asset GetAsset(LightningStrike lightningStrike);
+        void Report(Asset asset);
     }
 }

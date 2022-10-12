@@ -4,6 +4,11 @@ using System.Text;
 
 namespace DTNLightningAlert.Helpers
 {
+    /**
+     * Bing Maps Tile System
+     * https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system?redirectedfrom=MSDN
+     * **/
+
     public static class TileSystem
     {
         private const double EarthRadius = 6378137;

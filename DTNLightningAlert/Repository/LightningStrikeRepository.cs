@@ -4,22 +4,22 @@ using DTNLightningAlert.Models;
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace DTNLightningAlert.Services
+namespace DTNLightningAlert.Repository
 {
-    public class LightningStrikeProcessor : ILightningStrikeProcessor
-    {     
+    public class LightningStrikeRepository : ILightningStrikeRepository
+    {
         private string _fileLocation;
-        private readonly string _filePath = Directory.GetCurrentDirectory().Replace(@"bin\Debug\net6.0", @"DataSource\");
-        public LightningStrikeProcessor(string fileName)
-        {         
-            if (fileName == null)
-                throw new ArgumentNullException(nameof(fileName));
-            if (Path.GetExtension(fileName) != ".json")
-                throw new ArgumentException($"Invalid file extension!");
+        
+        public LightningStrikeRepository(string fileLocation)
+        {
+            _fileLocation = fileLocation;
 
-            _fileLocation = GetFileLocation(fileName);
+            if (_fileLocation == null)
+                throw new ArgumentNullException(nameof(_fileLocation));
+            if (Path.GetExtension(_fileLocation) != ".json")
+                throw new ArgumentException($"Invalid file extension!");           
             if (!File.Exists(_fileLocation))
-                throw new LightningAlertException($"{_fileLocation} does not exist!");         
+                throw new LightningAlertException($"{_fileLocation} does not exist!");
 
         }
 
@@ -35,7 +35,7 @@ namespace DTNLightningAlert.Services
                     if (string.IsNullOrEmpty(lineValue))
                         continue;
 
-                    var lightningStrike = Deserialize(lineValue);            
+                    var lightningStrike = Deserialize(lineValue);
 
                     if (!IsLightningStrike((int)lightningStrike.FlashType))
                         continue;
@@ -48,11 +48,12 @@ namespace DTNLightningAlert.Services
         private LightningStrike Deserialize(string lineValue)
         {
             try
-            {          
+            {
+                // Used JsonSerializerDefaults.Web to map  decerialized object to LightningStrike model properly
                 var lightningStrike = JsonSerializer.Deserialize<LightningStrike>(lineValue, new JsonSerializerOptions(JsonSerializerDefaults.Web));
-              
+
                 return lightningStrike;
-            }       
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Lightning Strike Processor encountered an error. {ex.Message}");
@@ -65,9 +66,6 @@ namespace DTNLightningAlert.Services
         {
             return flashType == (int)FlashType.CloudToGround || flashType == (int)FlashType.CloudToCloud;
         }
-        private string GetFileLocation(string fileName)
-        {
-            return $"{_filePath}{fileName}";
-        }
+        
     }
 }

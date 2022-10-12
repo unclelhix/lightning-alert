@@ -1,9 +1,13 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DTNLightningAlert.Exceptions;
 using DTNLightningAlert.Services;
+using DTNLightningAlert.Repository;
 
-IAssetProcessor _assetProcessor;
-ILightningStrikeProcessor _lightningStrikeProcessor;
+IAssetRepository _assetRepo;
+ILightningStrikeRepository _lightningStrikeRepo;
+ITileSystemService _tileSystemService;
+List<IAlertReporterService> _alertReportService = new List<IAlertReporterService>();
+
 HashSet<string> _assetsReported = new HashSet<string>();
 
 while (true)
@@ -14,17 +18,21 @@ while (true)
         var lightningFileName = Console.ReadLine();
 
         Console.WriteLine("Enter Assets File Name:");
-        var assetsFileName = Console.ReadLine();
+        var assetsFileName = Console.ReadLine();        
 
-        _assetProcessor = new AssetProcessor(assetsFileName);
+        _tileSystemService = new TileSystemService();
 
-        _lightningStrikeProcessor = new LightningStrikeProcessor(lightningFileName);
+        _assetRepo = new AssetRepository(_tileSystemService, assetsFileName);
 
-        var lightningAlertService = new LightningAlertService(_lightningStrikeProcessor, _assetProcessor, _assetsReported);
+        _lightningStrikeRepo = new LightningStrikeRepository(lightningFileName);
+
+        _alertReportService.AddRange(new IAlertReporterService[] { new EmailAlertReportingService(), new ConsoleAlertReportingService() });
+
+        var lightningAlertService = new LightningAlertService(_alertReportService, _lightningStrikeRepo, _assetRepo, _assetsReported);
 
         lightningAlertService.ExecuteLightningAlert();
 
-        _assetsReported = lightningAlertService.GetLightningAssetAlerts();
+        _assetsReported = lightningAlertService.GetAssetsReported();
 
     }
 
@@ -42,7 +50,7 @@ while (true)
     }
 
 
-    Console.WriteLine("Enter Y to continue:");
+    Console.Write("Enter Y to continue:");
     if (Console.ReadLine() != "Y")
         break;
 
