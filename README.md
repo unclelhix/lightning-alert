@@ -2,7 +2,7 @@
 
 A sample console application for lightning alert written in C# using Visual Studio 2022.
 
-If you run the application you need to provide the full path of the .json files, see example bellow:
+If you run the application you need to provide the full path of the .json files, see example below:
 ```
 C:\lightning.json
 C:\assets.json
