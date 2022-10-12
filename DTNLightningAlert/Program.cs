@@ -14,10 +14,10 @@ while (true)
 {
     try
     {
-        Console.WriteLine("Enter Lightning Strike File Name:");
+        Console.Write("Enter Lightning Strike File Path:");
         var lightningFileName = Console.ReadLine();
 
-        Console.WriteLine("Enter Assets File Name:");
+        Console.Write("Enter Assets File Path:");
         var assetsFileName = Console.ReadLine();        
 
         _tileSystemService = new TileSystemService();
