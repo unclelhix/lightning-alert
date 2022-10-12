@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4SBhmUk8SQ9EuRm/jfrNyYhDcUyVGeY2Y896sAEHcQFZ+L4WSK+06YwgJZmTP6lbU1j/6ptcT9Asxe/7XrkJwA==",
+  "success": true,
+  "projectFilePath": "D:\\Sample Programming\\Dotnet Core\\DTNLightningAlert\\DTNLightningAlert\\DTNLightningAlert.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ACER\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

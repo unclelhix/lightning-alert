@@ -1,0 +1,17 @@
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\bin\Debug\net6.0\DTNLightningAlert.exe
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\bin\Debug\net6.0\DTNLightningAlert.deps.json
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\bin\Debug\net6.0\DTNLightningAlert.runtimeconfig.json
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\bin\Debug\net6.0\DTNLightningAlert.dll
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\bin\Debug\net6.0\DTNLightningAlert.pdb
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.csproj.AssemblyReference.cache
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.GeneratedMSBuildEditorConfig.editorconfig
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.AssemblyInfoInputs.cache
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.AssemblyInfo.cs
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.csproj.CoreCompileInputs.cache
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.dll
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\refint\DTNLightningAlert.dll
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.pdb
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.genruntimeconfig.cache
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\ref\DTNLightningAlert.dll
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Sample Programming\Dotnet Core\DTNLightningAlert\DTNLightningAlert\obj\Debug\net6.0\DTNLightningAlert.csproj.CopyComplete
