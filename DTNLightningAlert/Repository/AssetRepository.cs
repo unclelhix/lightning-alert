@@ -15,7 +15,9 @@ namespace DTNLightningAlert.Repository
         private readonly ITileSystemService _tileSystemService;
         private readonly Dictionary<string, Asset> _assetDictionary = new Dictionary<string, Asset>();
 
-        public AssetRepository(ITileSystemService tileSystemService, string fileLocation)
+        public AssetRepository(
+            ITileSystemService tileSystemService, 
+            string fileLocation)
         {
             _fileLocation = fileLocation;
             _tileSystemService = tileSystemService;

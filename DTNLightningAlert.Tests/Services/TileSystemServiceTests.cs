@@ -14,23 +14,31 @@ namespace DTNLightningAlert.Tests.Services
         private readonly ITileSystemService _tileSystemService;
         public TileSystemServiceTests()
         {
-            _tileSystemService = Substitute.For<ITileSystemService>();
+            _tileSystemService = new TileSystemService();
         }
         [Fact]
         public void GetQuadkey_ReturnsEquality() {
 
-            const string expectedQuadKey = "122221112203";
-            const double latitude = 10d;
-            const double longtitude = 10d;
+            const string expectedQuadKey = "023112133033";
+            const double latitude = 33.5524951d;
+            const double longitude = -94.5822016;
             const int levelDetail = 12;           
 
-            _tileSystemService.GetQuadKey(latitude, longtitude, levelDetail);
-            _tileSystemService.Received().GetQuadKey(Arg.Any<double>(), Arg.Any<double>(), Arg.Any<int>());
-            _tileSystemService.Received().GetQuadKey(Arg.Is<double>(x=> x == 10d), Arg.Is<double>(x => x == 10d), Arg.Is<int>(x => x == 12));
+            var actualResult = _tileSystemService.GetQuadKey(latitude, longitude, levelDetail);
 
-            _tileSystemService.GetQuadKey(latitude, longtitude, levelDetail).Returns(expectedQuadKey);
-            Assert.Equal(expectedQuadKey, _tileSystemService.GetQuadKey(latitude, longtitude, levelDetail));
+            Assert.Equal(expectedQuadKey, actualResult);
 
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(24)]
+        public void GetQuadKey_ThrowsArgumentException_InvalidParameters(int levelDetail)
+        {         
+
+            Assert.Throws<ArgumentException>(() => _tileSystemService.GetQuadKey(1d, 1d, levelDetail));
+          
+        }
+
     }
 }
