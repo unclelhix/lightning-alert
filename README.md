@@ -16,8 +16,6 @@ C:\assets.json
 
 > O(n) - 1 Iteration only used to get a paticular asset.
 
-> O(1) - Dictionary is the lookup for Assets
-
 - If we put this code into production, but found it too slow, or it needed to scale to many more users or more frequent strikes, what are the first things you would think of to speed it up?
 
 > We could add or use MessageQueuing like RabbitMQ or any MessageQueuing services and create a separate application for uploading files that sends data into the queue. If users upload multiple large files at the same time the application wont be overwhelmed.
