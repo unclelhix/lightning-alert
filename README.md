@@ -14,7 +14,7 @@ C:\assets.json
 
 - What is the [time complexity](https://en.wikipedia.org/wiki/Time_complexity) for determining if a strike has occurred for a particular asset?
 
-> O(n2) - Geting the List of Lightning Strikes and decerializing each line value plus Iterate to each result to check which asset is affected.
+> O(n) - 1 Iteration only used to get a paticular asset.
 
 > O(1) - Dictionary is the lookup for Assets
 
