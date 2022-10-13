@@ -10,8 +10,8 @@ namespace DTNLightningAlert.Services
     public class LightningAlertService : ILightningAlertService
     {
         private readonly HashSet<string> _assetsReported;        
-        private readonly ILightningStrikeRepository _lightningStrikeProcessor;
-        private readonly IAssetRepository _assetProcessor;
+        private readonly ILightningStrikeRepository _lightningStrikeRepository;
+        private readonly IAssetRepository _assetRepository;
         private readonly List<IAlertReporterService> _alertReporterService;
 
         public LightningAlertService(
@@ -21,8 +21,8 @@ namespace DTNLightningAlert.Services
             HashSet<string> assetsReported)
         {
             _alertReporterService = alertReporterService;
-            _assetProcessor = assetProcessor;
-            _lightningStrikeProcessor = lightningStrikeProcessor;
+            _assetRepository = assetProcessor;
+            _lightningStrikeRepository = lightningStrikeProcessor;
             _assetsReported = assetsReported;
         }               
 
@@ -30,7 +30,7 @@ namespace DTNLightningAlert.Services
         {
             Console.WriteLine("Processing....");
 
-            var lightningStrikes = _lightningStrikeProcessor.GetLightningStrikes();
+            var lightningStrikes = _lightningStrikeRepository.GetLightningStrikes();
 
             foreach (var item in lightningStrikes)
             {
@@ -38,7 +38,7 @@ namespace DTNLightningAlert.Services
                 if (item.FlashType == FlashType.HeartBeat)
                     continue;
 
-                var asset = _assetProcessor.GetAsset(item);
+                var asset = _assetRepository.GetAsset(item);
 
                 if (asset == null)
                     continue;
